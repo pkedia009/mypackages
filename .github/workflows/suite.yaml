@@ -1,4 +1,4 @@
-name: Build and Publish Suite Docker Image
+name: Build and Publish Private Suite Docker Image
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/suite
+  IMAGE_NAME: com.pkedia009/suite
 
 jobs:
   build-and-push:
@@ -40,6 +40,8 @@ jobs:
         tags: |
           ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.VERSION }}
+        labels: |
+          org.opencontainers.image.source=https://github.com/${{ github.repository }}
 
     - name: Output image details
       run: |
